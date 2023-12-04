@@ -9,6 +9,7 @@ import scenario.Scenario;
 import section.Section;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
@@ -47,6 +48,7 @@ public class TxtReader {
                     int indentation = getIndentation(line);
                     Section newSection = new Section(line.trim());
                     newSection.indentation = indentation;
+                    newSection.content = line;
 
                     // If the new line has deeper indentation, add it as a subsection
                     if (indentation > currentSection.indentation) {
@@ -85,9 +87,18 @@ public class TxtReader {
 
     public static void main(String[] args) {
         // Example usage
-        String filePath = "scenariusz.txt";
+        String fileName = "scenariusz.txt";
+        String filePath = new File(fileName).getAbsolutePath();
+
+        // File exists, proceed with reading
         Scenario scenariusz = new Scenario();
         TxtReader fileReader = new TxtReader(filePath, scenariusz);
         fileReader.readFile();
+        
+        //Example
+        System.out.println("Tytuł: " + scenariusz.title);
+        System.out.println("Aktorzy: " + scenariusz.actors);
+        System.out.println("Aktorzy systemowi: " + scenariusz.system_actors);
+        System.out.println(scenariusz.sections.get(4).subsections.get(2).subsections.get(0).content);
     }
 }

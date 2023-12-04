@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Section {
-    String content;
+    public String content;
     public int indentation;
     public List<Section> subsections = new ArrayList<Section>();
     public Section parent;
