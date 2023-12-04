@@ -15,23 +15,31 @@ import java.io.IOException;
 import java.util.List;
 
 public class TxtReader {
-    private String filePath;
+    private File file;
     public Scenario scenario;
 
-    public TxtReader(String filePath, Scenario scenario) {
-        this.filePath = filePath;
+    public TxtReader(File file, Scenario scenario) {
+        // Check if the file has a .txt extension
+        if (!file.getName().toLowerCase().endsWith(".txt")) {
+            throw new IllegalArgumentException("The provided file is not a .txt file.");
+        }
+        this.file = file;
         this.scenario = scenario;
     }
 
     public void readFile() {
         try {
-            FileReader fileReader = new FileReader(filePath);
+            FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
             Section currentSection = new Section("Pusty");
             currentSection.indentation = 0;
             String line;
             while ((line = bufferedReader.readLine()) != null) {
+                // Skip empty lines
+                if (line.trim().isEmpty()) {
+                    continue;
+                }
                 if (line.startsWith("Tytuł:")) {
                     // Extract title information
                     scenario.title = line.substring("Tytuł:".length()).trim();
@@ -48,7 +56,7 @@ public class TxtReader {
                     int indentation = getIndentation(line);
                     Section newSection = new Section(line.trim());
                     newSection.indentation = indentation;
-                    newSection.content = line;
+                    // newSection.content = line;
 
                     // If the new line has deeper indentation, add it as a subsection
                     if (indentation > currentSection.indentation) {
@@ -86,19 +94,20 @@ public class TxtReader {
     }
 
     public static void main(String[] args) {
-        // Example usage
-        String fileName = "scenariusz.txt";
-        String filePath = new File(fileName).getAbsolutePath();
+        // Example file
+        File file = new File("scenariusz.txt");
 
-        // File exists, proceed with reading
+        // Sceanario class that will be filled with data
         Scenario scenariusz = new Scenario();
-        TxtReader fileReader = new TxtReader(filePath, scenariusz);
+
+        //TxtReader class that needs a file and scenario where
+        TxtReader fileReader = new TxtReader(file, scenariusz);
         fileReader.readFile();
         
         //Example
         System.out.println("Tytuł: " + scenariusz.title);
         System.out.println("Aktorzy: " + scenariusz.actors);
         System.out.println("Aktorzy systemowi: " + scenariusz.system_actors);
-        System.out.println(scenariusz.sections.get(4).subsections.get(2).subsections.get(0).content);
+        System.out.println(scenariusz.sections.get(3).subsections.get(2).subsections.get(0).content);
     }
 }
