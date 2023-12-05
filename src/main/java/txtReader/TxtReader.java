@@ -1,36 +1,38 @@
 /*
-This class reads the file under filePath and places it into the scenario.
-Every other section (deeper indentation) is placed in list of higher section
+This class reads the multipartFile and places it into the scenario.
+Every other section (deeper indentation) is placed in list of higher section.
+Arguments: multipartFile (from Postman API), scenario (scenario where later we want to put file conent to)
  */
 
 package txtReader;
 
+import org.springframework.web.multipart.MultipartFile;
 import scenario.Scenario;
 import section.Section;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
 
 public class TxtReader {
-    private File file;
+    private MultipartFile multipartFile;
     public Scenario scenario;
 
-    public TxtReader(File file, Scenario scenario) {
+    public TxtReader(MultipartFile multipartFile, Scenario scenario) {
         // Check if the file has a .txt extension
-        if (!file.getName().toLowerCase().endsWith(".txt")) {
+        if (!multipartFile.getOriginalFilename().toLowerCase().endsWith(".txt")) {
             throw new IllegalArgumentException("The provided file is not a .txt file.");
         }
-        this.file = file;
+        this.multipartFile = multipartFile;
         this.scenario = scenario;
     }
 
+    /*
+    Reads file line by line and puts correct values to 'title', 'actors', ... of scenario
+     */
     public void readFile() {
-        try {
-            FileReader fileReader = new FileReader(file);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(multipartFile.getInputStream()))) {
 
             Section currentSection = new Section("Pusty");
             currentSection.indentation = 0;
@@ -50,7 +52,7 @@ public class TxtReader {
                 } else if (line.startsWith("Aktor systemowy:")) {
                     // Extract system actors information
                     String systemActorsLine = line.substring("Aktor systemowy:".length()).trim();
-                    scenario.system_actors = List.of(systemActorsLine.split(","));
+                    scenario.systemActors = List.of(systemActorsLine.split(","));
                 } else {
                     // Create a new section for each indented line
                     int indentation = getIndentation(line);
@@ -84,6 +86,10 @@ public class TxtReader {
             e.printStackTrace();
         }
     }
+
+    /*
+    Gets the indentation of one line (number of white spaces before first sign)
+     */
     private int getIndentation(String line) {
         // Calculate the number of leading whitespaces to determine indentation
         int indentation = 0;
@@ -91,23 +97,5 @@ public class TxtReader {
             indentation++;
         }
         return indentation;
-    }
-
-    public static void main(String[] args) {
-        // Example file
-        File file = new File("scenariusz.txt");
-
-        // Sceanario class that will be filled with data
-        Scenario scenariusz = new Scenario();
-
-        //TxtReader class that needs a file and scenario where
-        TxtReader fileReader = new TxtReader(file, scenariusz);
-        fileReader.readFile();
-        
-        //Example
-        System.out.println("Tytuł: " + scenariusz.title);
-        System.out.println("Aktorzy: " + scenariusz.actors);
-        System.out.println("Aktorzy systemowi: " + scenariusz.system_actors);
-        System.out.println(scenariusz.sections.get(3).subsections.get(2).subsections.get(0).content);
     }
 }
