@@ -13,7 +13,9 @@ import section.Section;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TxtReader {
     private MultipartFile multipartFile;
@@ -34,8 +36,9 @@ public class TxtReader {
     public void readFile() {
         try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(multipartFile.getInputStream()))) {
 
-            Section currentSection = new Section("Pusty");
+            Section currentSection = new Section("");
             currentSection.indentation = 0;
+            int baseIndentation = 0;
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 // Skip empty lines
@@ -48,12 +51,23 @@ public class TxtReader {
                 } else if (line.startsWith("Aktorzy:")) {
                     // Extract actors information
                     String actorsLine = line.substring("Aktorzy:".length()).trim();
-                    scenario.actors = List.of(actorsLine.split(","));
+                    String[] actorNames = actorsLine.split(",");
+                    scenario.actors = Arrays.stream(actorNames)
+                            .map(String::trim)
+                            .collect(Collectors.toList());
                 } else if (line.startsWith("Aktor systemowy:")) {
                     // Extract system actors information
                     String systemActorsLine = line.substring("Aktor systemowy:".length()).trim();
-                    scenario.systemActors = List.of(systemActorsLine.split(","));
+                    String[] actorNames = systemActorsLine.split(",");
+                    scenario.systemActors = Arrays.stream(actorNames)
+                            .map(String::trim)
+                            .collect(Collectors.toList());
                 } else {
+                    if (currentSection.content == "") {
+                        baseIndentation = getIndentation(line);
+                        currentSection.indentation = baseIndentation;
+                        System.out.println(baseIndentation);
+                    }
                     // Create a new section for each indented line
                     int indentation = getIndentation(line);
                     Section newSection = new Section(line.trim());
@@ -64,7 +78,7 @@ public class TxtReader {
                     if (indentation > currentSection.indentation) {
                         newSection.parent = currentSection;
                         currentSection.subsections.add(newSection);
-                    } else if (indentation == 0){
+                    } else if (indentation == baseIndentation){
                         scenario.sections.add(newSection);
                     } else {
                         // Move to the parent section based on indentation
