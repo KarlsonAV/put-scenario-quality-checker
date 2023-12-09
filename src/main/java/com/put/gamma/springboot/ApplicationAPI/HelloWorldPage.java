@@ -4,6 +4,11 @@ import com.put.gamma.springboot.TestFunctionality.Document;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import scenario.Scenario;
+import txtReader.TxtReader;
+
+
+
 import java.io.File;
 import java.io.IOException;
 
@@ -20,22 +25,16 @@ public class HelloWorldPage {
         if (file.isEmpty()) {
             return "File is empty.";
         }
+        Scenario scenario = new Scenario();
+        scenario.scenarioTextReader = new TxtReader(file, scenario);
+        scenario.scenarioTextReader.readFile();
 
-        try {
-            // Get the bytes of the file content
-            byte[] bytes = file.getBytes();
+        //Usage example
+        System.out.println("Tytuł: " + scenario.title);
+        System.out.println("Aktorzy: " + scenario.actors);
+        System.out.println("Aktorzy systemowi: " + scenario.systemActors);
+        System.out.println(scenario.sections.get(3).subsections.get(2).subsections.get(0).content);
 
-            // Convert bytes to String assuming it's a text file (adjust charset if needed)
-            String fileContent = new String(bytes);
-
-            // Print or process the file content
-            System.out.println("Received file: " + file.getOriginalFilename());
-            System.out.println("File content: " + fileContent);
-
-            return file.getOriginalFilename();
-        } catch (IOException e) {
-            // Handle exception (e.g., log it)
-            return "Failed to process the file.";
-        }
+        return scenario.title;
     }
 }
