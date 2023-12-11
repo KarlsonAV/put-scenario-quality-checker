@@ -25,4 +25,22 @@ public class Scenario {
         keywords.add("ELSE");
         keywords.add("FOR EACH");
     }
+
+    /**This method returns the number of all sections in the given file.
+     * It works recursively by traversing the graph-like structure of
+     * Scenario.sections and Section.subsections. When it reaches the leaf node
+     * it adds one to the section count.
+     */
+    public int countAllSections(List<Section> sections){
+        int sectionCount = 0;
+        for(Section section : sections){
+            if(section.subsections.size()==0){
+                sectionCount+=1;
+            }
+            else{
+                sectionCount+=countAllSections(section.subsections);
+            }
+        }
+        return sectionCount;
+    }
 }
