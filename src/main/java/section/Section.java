@@ -26,9 +26,15 @@ public class Section {
     /**
      * This method returns true if the section content begins with a keyword.
      */
-    public boolean checkIfBeginsWithKeyword(List<String> keywords){
-        for(String keyword: keywords){
-            if(this.content.startsWith(keyword)){
+    public boolean checkIfBeginsWithActorName(List<String> actors, List<String> systemActors){
+        for(String actor: actors){
+            System.out.println(actor);
+            if(this.content.startsWith(actor)){
+                return true;
+            }
+        }
+        for(String actor: systemActors){
+            if(this.content.startsWith(actor)){
                 return true;
             }
         }
