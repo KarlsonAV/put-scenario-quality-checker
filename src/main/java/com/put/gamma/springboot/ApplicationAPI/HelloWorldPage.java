@@ -35,6 +35,7 @@ public class HelloWorldPage {
         System.out.println("Aktorzy systemowi: " + scenario.systemActors);
         System.out.println(scenario.sections.get(3).subsections.get(2).subsections.get(0).content);
         System.out.println("Liczba kroków: "+ scenario.countAllSections(scenario.sections));
+        System.out.println("Krok: "+ scenario.sections.get(3).content +" zaczyna się od słowa kluczowego: "+scenario.sections.get(3).checkIfBeginsWithKeyword(scenario.getKeywords()));
         return scenario.title;
     }
 }

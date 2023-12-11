@@ -25,6 +25,9 @@ public class Scenario {
         keywords.add("ELSE");
         keywords.add("FOR EACH");
     }
+    public List<String> getKeywords(){
+        return keywords;
+    }
 
     /**This method returns the number of all sections in the given file.
      * It works recursively by traversing the graph-like structure of

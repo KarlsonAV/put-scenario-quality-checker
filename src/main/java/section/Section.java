@@ -22,4 +22,16 @@ public class Section {
         this.content = content;
         this.parent = parent;
     }
+
+    /**
+     * This method returns true if the section content begins with a keyword.
+     */
+    public boolean checkIfBeginsWithKeyword(List<String> keywords){
+        for(String keyword: keywords){
+            if(this.content.startsWith(keyword)){
+                return true;
+            }
+        }
+        return false;
+    }
 }
