@@ -5,10 +5,13 @@ Indentation shows how deep this step is.
  */
 package section;
 
+import Element.Element;
+import visitor.Visitor;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Section {
+public class Section implements Element {
     public String content;
     public int indentation;
     public List<Section> subsections = new ArrayList<Section>();
@@ -30,5 +33,14 @@ public class Section {
             }
         }
         return false;
+    }
+
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.elements.add(this);
+        for (Section subsection: subsections
+        ) {
+            visitor.visit(subsection);
+        }
     }
 }
