@@ -22,4 +22,13 @@ public class Section {
         this.content = content;
         this.parent = parent;
     }
+    public boolean checkIfBeginsWithKeyword(List<String> keywords){
+        for (String keyword: keywords
+             ) {
+            if(this.content.startsWith(keyword)){
+                return true;
+            }
+        }
+        return false;
+    }
 }
