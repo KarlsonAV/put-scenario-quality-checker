@@ -35,13 +35,8 @@ public class Scenario {
     public List<String> getActors(){
         return this.actors;
     }
-    public void printActors(){
-        for(String actor : this.actors){
-            System.out.println(actor);
-        }
-    }
     /**This method returns the number of all sections in the given file.
-     * It works recursively by traversing the graph-like structure of
+     * It works recursively (DFS) by traversing the graph-like structure of
      * Scenario.sections and Section.subsections. When it reaches the leaf node
      * it adds one to the section count.
      */

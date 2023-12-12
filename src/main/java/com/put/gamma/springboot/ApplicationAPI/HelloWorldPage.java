@@ -36,8 +36,7 @@ public class HelloWorldPage {
         System.out.println(scenario.sections.get(3).subsections.get(2).subsections.get(0).content);
         System.out.println("Liczba kroków: "+ scenario.countAllSections(scenario.sections));
         System.out.println("Krok: "+ scenario.sections.get(3).content +" zawiera aktorów: "+scenario.sections.get(3).checkIfBeginsWithActorName(scenario.getActors(),scenario.getSystemActors()));
-        System.out.println("Krok: "+ scenario.sections.get(2).content +" zawiera aktorów: "+scenario.sections.get(3).checkIfBeginsWithActorName(scenario.getActors(),scenario.getSystemActors()));
-        scenario.printActors();
+        System.out.println("Krok: "+ scenario.sections.get(2).content +" zawiera aktorów: "+scenario.sections.get(2).checkIfBeginsWithActorName(scenario.getActors(),scenario.getSystemActors()));
         return scenario.title;
     }
 }
