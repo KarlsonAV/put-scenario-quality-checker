@@ -7,10 +7,7 @@ package scenario;
 import Element.Element;
 import section.Section;
 import txtReader.TxtReader;
-import visitor.Visitor;
-import visitor.VisitorCountSections;
-import visitor.VisitorKeywords;
-import visitor.VisitorActors;
+import visitor.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,5 +84,26 @@ public class Scenario implements Element {
         checkActorNameVisitor.visit(this);
         checkActorNameVisitor.visit(section);
         return checkActorNameVisitor.getDoesStartWithActors();
+    }
+
+    /**
+     * This method returns sections that do not start with actor names,
+     * ignoring keywords.
+     */
+    public List<String> findSectionsWithErrors(){
+        VisitorErrors findErrors = new VisitorErrors();
+        findErrors.visit(this);
+        return findErrors.getErrors();
+    }
+
+    /**
+     * This function displays sections with errors.
+     */
+    public void displayErrorSections(){
+        //List<String> sectionsWithErrors = findSectionsWithErrors();
+        System.out.println("Sections conatining errors:");
+        for(String content : findSectionsWithErrors()){
+            System.out.println(content);
+        }
     }
 }

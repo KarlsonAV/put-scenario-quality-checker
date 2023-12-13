@@ -16,7 +16,6 @@ public class VisitorActors implements Visitor {
         allActors.addAll(scenario.getActors());
         scenario.acceptOnlyHere(this);
     }
-
     @Override
     public void visit(Section section) {
         section.acceptOnlyHere(this);
