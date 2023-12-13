@@ -41,6 +41,8 @@ public class Scenario implements Element {
     public List<String> getActors(){
         return this.actors;
     }
+    public void setSystemActors(List<String> systemActors){this.systemActors=systemActors;}
+    public void setActors(List<String> actors){this.actors=actors;}
     /**This method returns the number of all sections in the given file.
      * It works recursively (DFS) by traversing the graph-like structure of
      * Scenario.sections and Section.subsections. When it reaches the leaf node
