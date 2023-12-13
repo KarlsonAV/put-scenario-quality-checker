@@ -27,13 +27,27 @@ public class Section implements Element {
     }
 
     /**
+     * This method trims the given string so it will ignore all characters before colon.
+     */
+    public String ignoreKeywordTrim(String content){
+        int colonIndex = content.indexOf(":");
+        if (colonIndex != -1) {
+            String trimmedString = content.substring(colonIndex + 1).trim();
+            trimmedString = trimmedString.replaceAll("\\s+", "");
+            return trimmedString;
+        } else {
+
+            return content;
+        }
+    }
+    /**
      * This method returns true if the section content begins with an actor name or system actor name,
      * all of which are contained in allActors list.
      * This method is called in Scenario class.
      */
     public boolean checkIfBeginsWithActorName(List<String> allActors){
         for(String actor: allActors){
-            if(this.content.trim().startsWith(actor)){
+            if(ignoreKeywordTrim(this.content).startsWith(actor)){
                 return true;
             }
         }
