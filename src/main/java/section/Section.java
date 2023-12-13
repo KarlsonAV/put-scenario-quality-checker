@@ -5,10 +5,13 @@ Indentation shows how deep this step is.
  */
 package section;
 
+import Element.Element;
+import visitor.Visitor;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Section {
+public class Section implements Element {
     public String content;
     public int indentation;
     public List<Section> subsections = new ArrayList<Section>();
@@ -24,19 +27,40 @@ public class Section {
     }
 
     /**
-     * This method returns true if the section content begins with an actor name or system actor name.
+     * This method returns true if the section content begins with an actor name or system actor name,
+     * all of which are contained in allActors list.
+     * This method is called in Scenario class.
      */
-    public boolean checkIfBeginsWithActorName(List<String> actors, List<String> systemActors){
-        for(String actor: actors){
-            if(this.content.trim().startsWith(actor)){
-                return true;
-            }
-        }
-        for(String actor: systemActors){
+    public boolean checkIfBeginsWithActorName(List<String> allActors){
+        for(String actor: allActors){
             if(this.content.trim().startsWith(actor)){
                 return true;
             }
         }
         return false;
+    }
+    public boolean checkIfBeginsWithKeyword(List<String> keywords){
+        for (String keyword: keywords
+        ) {
+            if(this.content.startsWith(keyword)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.elements.add(this);
+        for (Section subsection: subsections
+        ) {
+            visitor.visit(subsection);
+        }
+    }
+    /**
+     * This method accepts a visitor into this element without needing to visit its subsections.
+     */
+    public void acceptOnlyHere(Visitor visitor){
+        visitor.elements.add(this);
     }
 }
