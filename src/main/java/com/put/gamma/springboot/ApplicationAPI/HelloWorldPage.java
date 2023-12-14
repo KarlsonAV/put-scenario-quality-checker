@@ -34,7 +34,10 @@ public class HelloWorldPage {
         System.out.println("Aktorzy: " + scenario.actors);
         System.out.println("Aktorzy systemowi: " + scenario.systemActors);
         System.out.println(scenario.sections.get(3).subsections.get(2).subsections.get(0).content);
-
+        System.out.println("Liczba kroków: "+ scenario.countAllSections());
+        System.out.println("Sekcja: "+scenario.sections.get(3).subsections.get(0).content+" zaczyna się od nazwy aktora? "+ scenario.checkIfBeginsWithActorName(scenario.sections.get(3).subsections.get(0)));
+        System.out.println("Sekcja: "+scenario.sections.get(1).content+" zaczyna się od nazwy aktora? "+ scenario.checkIfBeginsWithActorName(scenario.sections.get(1)));
+        scenario.displayErrorSections();
         return scenario.title;
     }
 }

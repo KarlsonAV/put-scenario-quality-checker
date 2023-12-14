@@ -25,10 +25,38 @@ public class Section implements Element {
         this.content = content;
         this.parent = parent;
     }
+
+    /**
+     * This method trims the given string so it will ignore all characters before colon.
+     */
+    private String ignoreKeywordTrim(String content){
+        int colonIndex = content.indexOf(":");
+        if (colonIndex != -1) {
+            String trimmedString = content.substring(colonIndex + 1).trim();
+            trimmedString = trimmedString.replaceAll("\\s+", "");
+            return trimmedString;
+        } else {
+
+            return content;
+        }
+    }
+    /**
+     * This method returns true if the section content begins with an actor name or system actor name,
+     * all of which are contained in allActors list.
+     * This method is called in Scenario class.
+     */
+    public boolean checkIfBeginsWithActorName(List<String> allActors){
+        for(String actor: allActors){
+            if(ignoreKeywordTrim(this.content).trim().startsWith(actor)){
+                return true;
+            }
+        }
+        return false;
+    }
     public boolean checkIfBeginsWithKeyword(List<String> keywords){
         for (String keyword: keywords
-             ) {
-            if(this.content.startsWith(keyword)){
+        ) {
+            if(this.content.trim().startsWith(keyword)){
                 return true;
             }
         }
@@ -42,5 +70,11 @@ public class Section implements Element {
         ) {
             visitor.visit(subsection);
         }
+    }
+    /**
+     * This method accepts a visitor into this element without needing to visit its subsections.
+     */
+    public void acceptOnlyHere(Visitor visitor){
+        visitor.elements.add(this);
     }
 }
