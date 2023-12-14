@@ -22,7 +22,7 @@ public class Scenario implements Element {
     public TxtReader scenarioTextReader;
 
     public Scenario() {
-        // Initialize clueWords in the constructor
+        // Initialize keyWords in the constructor
         keywords.add("IF");
         keywords.add("ELSE");
         keywords.add("FOR EACH");
@@ -103,7 +103,7 @@ public class Scenario implements Element {
         //List<String> sectionsWithErrors = findSectionsWithErrors();
         System.out.println("Sections conatining errors:");
         for(String content : findSectionsWithErrors()){
-            System.out.println(content);
+            System.out.println("line: "+content);
         }
     }
 }

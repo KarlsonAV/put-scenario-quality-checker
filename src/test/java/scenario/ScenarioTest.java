@@ -16,7 +16,10 @@ class ScenarioTest {
     Section section3 = new Section("System zwraca wartość ujemną");
     Section section4 = new Section("FOR EACH: System");
     Section section5 = new Section("    Hektor miał Trojan radę nad Skamandru rzeką");
-    Section section6 = new Section("    IF: It's all greek to me");
+    Section section6 = new Section("    IF: Homer jest aktorem");
+    Section section7 = new Section("        Nie ma tu aktora!");
+    Section section8 = new Section("    IF: Test aktorow");
+    Section section9 = new Section("        Herold jest aktorem");
     List<String> actors = new ArrayList<>(){{
        add("Hektor");
        add("Homer");
@@ -39,6 +42,9 @@ class ScenarioTest {
         scenario.sections.add(section4);
         scenario.sections.get(3).subsections.add(section5);
         scenario.sections.get(3).subsections.add(section6);
+        scenario.sections.get(3).subsections.get(1).subsections.add(section7);
+        scenario.sections.get(3).subsections.add(section8);
+        scenario.sections.get(3).subsections.get(2).subsections.add(section9);
     }
     @Test
     public void testCheckIfBeginsWithActorNameNormal1(){
@@ -72,6 +78,15 @@ class ScenarioTest {
         //assertTrue(section3.checkIfBeginsWithActorName(allActors));
         assertFalse(scenario.checkIfBeginsWithActorName(scenario.sections.get(3).subsections.get(1)));
     }
-
+    @Test
+    public void testFindSectionsWithErrors(){
+        scenario.displayErrorSections();
+        assertEquals(2,scenario.findSectionsWithErrors().size());
+    }
+    @Test
+    public void testCheckIfBeginsWithKeyword(){
+        System.out.println(scenario.sections.get(3).subsections.get(2).content);
+        assertTrue(scenario.sections.get(3).subsections.get(2).checkIfBeginsWithKeyword(scenario.keywords));
+    }
 
 }

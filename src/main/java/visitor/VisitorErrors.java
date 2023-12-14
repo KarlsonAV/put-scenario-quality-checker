@@ -19,8 +19,11 @@ public class VisitorErrors implements Visitor{
     }
     @Override
     public void visit(Section section){
-        if(!section.checkIfBeginsWithActorName(allActors)&&!section.checkIfBeginsWithKeyword(keywords)){
-            errors.add(section.content);
+        System.out.println(this.keywords.get(0));
+        if(!section.checkIfBeginsWithKeyword(this.keywords)){
+            if(!section.checkIfBeginsWithActorName(this.allActors)){
+                errors.add(section.content);
+            }
         }
         section.accept(this);
     }

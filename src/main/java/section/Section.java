@@ -47,7 +47,7 @@ public class Section implements Element {
      */
     public boolean checkIfBeginsWithActorName(List<String> allActors){
         for(String actor: allActors){
-            if(ignoreKeywordTrim(this.content).startsWith(actor)){
+            if(ignoreKeywordTrim(this.content).trim().startsWith(actor)){
                 return true;
             }
         }
@@ -56,7 +56,7 @@ public class Section implements Element {
     public boolean checkIfBeginsWithKeyword(List<String> keywords){
         for (String keyword: keywords
         ) {
-            if(this.content.startsWith(keyword)){
+            if(this.content.trim().startsWith(keyword)){
                 return true;
             }
         }
