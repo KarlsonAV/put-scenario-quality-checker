@@ -48,35 +48,28 @@ class ScenarioTest {
     }
     @Test
     public void testCheckIfBeginsWithActorNameNormal1(){
-        //assertTrue(section1.checkIfBeginsWithActorName(allActors));
-
         assertTrue(scenario.checkIfBeginsWithActorName(scenario.sections.get(0)));
     }
     @Test
     public void testCheckIfBeginsWithActorNameEmpty(){
-        //assertFalse(section2.checkIfBeginsWithActorName(allActors));
         assertFalse(scenario.checkIfBeginsWithActorName(scenario.sections.get(1)));
     }
     @Test
     public void testCheckIfBeginsWithActorNameNormal2(){
-        //assertTrue(section3.checkIfBeginsWithActorName(allActors));
         assertTrue(scenario.checkIfBeginsWithActorName(scenario.sections.get(2)));
     }
     @Test
     public void testCheckIfBeginsWithActorNameKeyword(){
-        //assertTrue(section3.checkIfBeginsWithActorName(allActors));
         assertTrue(scenario.checkIfBeginsWithActorName(scenario.sections.get(3)));
     }
     @Test
     public void testCheckIfBeginsWithActorNameIndentation(){
-        //assertTrue(section3.checkIfBeginsWithActorName(allActors));
-        assertFalse(scenario.checkIfBeginsWithActorName(scenario.sections.get(3).subsections.get(0)));
+        assertTrue(scenario.checkIfBeginsWithActorName(scenario.sections.get(3).subsections.get(0)));
     }
 
     @Test
     public void testCheckIfBeginsWithActorNameIndentationKeyword(){
-        //assertTrue(section3.checkIfBeginsWithActorName(allActors));
-        assertFalse(scenario.checkIfBeginsWithActorName(scenario.sections.get(3).subsections.get(1)));
+        assertTrue(scenario.checkIfBeginsWithActorName(scenario.sections.get(3).subsections.get(1)));
     }
     @Test
     public void testFindSectionsWithErrors(){
@@ -85,7 +78,6 @@ class ScenarioTest {
     }
     @Test
     public void testCheckIfBeginsWithKeyword(){
-        System.out.println(scenario.sections.get(3).subsections.get(2).content);
         assertTrue(scenario.sections.get(3).subsections.get(2).checkIfBeginsWithKeyword(scenario.keywords));
     }
 

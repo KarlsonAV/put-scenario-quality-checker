@@ -29,7 +29,7 @@ public class Section implements Element {
     /**
      * This method trims the given string so it will ignore all characters before colon.
      */
-    public String ignoreKeywordTrim(String content){
+    private String ignoreKeywordTrim(String content){
         int colonIndex = content.indexOf(":");
         if (colonIndex != -1) {
             String trimmedString = content.substring(colonIndex + 1).trim();
