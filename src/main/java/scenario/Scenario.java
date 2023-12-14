@@ -101,7 +101,7 @@ public class Scenario implements Element {
      */
     public void displayErrorSections(){
         //List<String> sectionsWithErrors = findSectionsWithErrors();
-        System.out.println("Sections conatining errors:");
+        System.out.println("Sections conataining errors:");
         for(String content : findSectionsWithErrors()){
             System.out.println("line: "+content);
         }
