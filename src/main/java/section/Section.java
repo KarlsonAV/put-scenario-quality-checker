@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Section implements Element {
+    public int depth;
     public String content;
     public int indentation;
     public List<Section> subsections = new ArrayList<Section>();
@@ -66,6 +67,7 @@ public class Section implements Element {
     @Override
     public void accept(Visitor visitor) {
         visitor.elements.add(this);
+        //System.out.println(this.depth+" "+this.content);
         for (Section subsection: subsections
         ) {
             visitor.visit(subsection);

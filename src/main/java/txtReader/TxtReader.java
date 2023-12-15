@@ -38,6 +38,7 @@ public class TxtReader {
 
             Section currentSection = new Section("");
             currentSection.indentation = 0;
+            currentSection.depth=1;
             int baseIndentation = 0;
             String line;
             while ((line = bufferedReader.readLine()) != null) {
@@ -77,9 +78,12 @@ public class TxtReader {
                     // If the new line has deeper indentation, add it as a subsection
                     if (indentation > currentSection.indentation) {
                         newSection.parent = currentSection;
+                        newSection.depth = currentSection.depth+1;
                         currentSection.subsections.add(newSection);
                     } else if (indentation == baseIndentation){
+                        newSection.depth=1;
                         scenario.sections.add(newSection);
+
                     } else {
                         // Move to the parent section based on indentation
                         while (indentation <= currentSection.indentation) {
@@ -87,6 +91,7 @@ public class TxtReader {
                         }
                         // Add the new section as a subsection to the current section
                         newSection.parent = currentSection;
+                        newSection.depth = currentSection.depth+1;
                         currentSection.subsections.add(newSection);
                     }
 
