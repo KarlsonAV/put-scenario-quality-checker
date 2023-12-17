@@ -5,8 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import scenario.Scenario;
-import txtReader.TxtReader;
+import com.put.gamma.scenario.Scenario;
+import com.put.gamma.txtReader.TxtReader;
 
 import java.util.List;
 

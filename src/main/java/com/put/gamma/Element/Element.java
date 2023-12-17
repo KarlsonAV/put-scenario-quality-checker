@@ -1,6 +1,6 @@
-package Element;
+package com.put.gamma.Element;
 
-import visitor.Visitor;
+import com.put.gamma.visitor.Visitor;
 
 public interface Element {
     public void accept(Visitor visitor);

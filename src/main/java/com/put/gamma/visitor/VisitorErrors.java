@@ -1,7 +1,7 @@
-package visitor;
+package com.put.gamma.visitor;
 
-import scenario.Scenario;
-import section.Section;
+import com.put.gamma.scenario.Scenario;
+import com.put.gamma.section.Section;
 
 import java.util.ArrayList;
 import java.util.List;

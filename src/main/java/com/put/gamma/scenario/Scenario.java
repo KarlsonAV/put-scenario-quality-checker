@@ -3,11 +3,11 @@ Class scenario that contains title, actors, system actors and list of main secti
 To fill the scenario scenarioTxtReader must be used.
  */
 
-package scenario;
-import Element.Element;
-import section.Section;
-import txtReader.TxtReader;
-import visitor.*;
+package com.put.gamma.scenario;
+import com.put.gamma.Element.Element;
+import com.put.gamma.txtReader.TxtReader;
+import com.put.gamma.visitor.*;
+import com.put.gamma.section.Section;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -4,17 +4,16 @@ Every other section (deeper indentation) is placed in list of higher section.
 Arguments: multipartFile (from Postman API), scenario (scenario where later we want to put file conent to)
  */
 
-package txtReader;
+package com.put.gamma.txtReader;
 
 import org.springframework.web.multipart.MultipartFile;
-import scenario.Scenario;
-import section.Section;
+import com.put.gamma.scenario.Scenario;
+import com.put.gamma.section.Section;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class TxtReader {
