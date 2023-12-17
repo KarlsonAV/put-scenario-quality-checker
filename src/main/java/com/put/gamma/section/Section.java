@@ -3,10 +3,10 @@ Every section is one command (line) of our scenario. Every section can contain l
 Parent is the parent Section of this actual Section (Sections without indentation don't contain any parent).
 Indentation shows how deep this step is.
  */
-package section;
+package com.put.gamma.section;
 
-import Element.Element;
-import visitor.Visitor;
+import com.put.gamma.Element.Element;
+import com.put.gamma.visitor.Visitor;
 
 import java.util.ArrayList;
 import java.util.List;
