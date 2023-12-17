@@ -62,7 +62,7 @@ public class Scenario implements Element {
         }
     }
 
-    public int countStepsWithKeywords(){
+    public int countSectionsWithKeywords(){
         int result = 0;
         VisitorKeywords countKeywordsVisitor = new VisitorKeywords();
         countKeywordsVisitor.visit(this);
