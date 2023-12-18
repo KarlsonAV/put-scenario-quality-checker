@@ -1,5 +1,7 @@
 package com.put.gamma.springboot.ApplicationAPI;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,11 +24,14 @@ public class ScenarioQualityChecker {
      * @param file Multipart txt file containing the scenario text.
      * @return ResponseEntity with the JSON object indicating the number of sections.
      */
+
+    private static Logger logger = LoggerFactory.getLogger(ScenarioQualityChecker.class);
     @PostMapping("api/v1/count/sections")
     @ResponseBody
     public ResponseEntity<Object> countSections(@RequestParam("file") MultipartFile file) {
         try {
             if (file.isEmpty()) {
+                logger.info("File is empty");
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("File is empty.");
             }
 
@@ -35,7 +40,7 @@ public class ScenarioQualityChecker {
             scenario.scenarioTextReader.readFile();
 
             int numberOfSections = scenario.countAllSections();
-
+            logger.info("Number of Sections: " + numberOfSections);
             // Create and return a JSON response object
             return ResponseEntity.ok().body("{\"numberOfSections\": " + numberOfSections + "}");
         } catch (Exception e) {
@@ -54,6 +59,7 @@ public class ScenarioQualityChecker {
     public ResponseEntity<Object> countSectionsWithKeywords(@RequestParam("file") MultipartFile file) {
         try {
             if (file.isEmpty()) {
+                logger.info("File is empty");
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("File is empty.");
             }
 
@@ -62,6 +68,7 @@ public class ScenarioQualityChecker {
             scenario.scenarioTextReader.readFile();
 
             int numberOfSectionsWithKeywords = scenario.countSectionsWithKeywords();
+            logger.info("Number of Sections With Keywords: " + numberOfSectionsWithKeywords);
             return ResponseEntity.ok().body("{\"numberOfSectionsWithKeywords\": " + numberOfSectionsWithKeywords + "}");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred: " + e.getMessage());
@@ -79,6 +86,7 @@ public class ScenarioQualityChecker {
     public ResponseEntity<Object> findSectionsWithErrors(@RequestParam("file") MultipartFile file) {
         try {
             if (file.isEmpty()) {
+                logger.info("File is empty");
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("File is empty.");
             }
 
@@ -87,7 +95,7 @@ public class ScenarioQualityChecker {
             scenario.scenarioTextReader.readFile();
 
             List<String> sectionsWithErrors = scenario.findSectionsWithErrors();
-
+            logger.info("Sections with error: " + sectionsWithErrors);
             return ResponseEntity.ok().body("{\"sectionsWithErrors\": " + sectionsWithErrors + "}");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred: " + e.getMessage());

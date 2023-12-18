@@ -1,7 +1,7 @@
-/*
-Every section is one command (line) of our scenario. Every section can contain list of subsections (if it has any).
-Parent is the parent Section of this actual Section (Sections without indentation don't contain any parent).
-Indentation shows how deep this step is.
+/**
+ * Every section is one command (line) of our scenario. Every section can contain list of subsections (if it has any).
+ * Parent is the parent Section of this actual Section (Sections without indentation don't contain any parent).
+ * Indentation shows how deep this step is.
  */
 package com.put.gamma.section;
 
@@ -10,7 +10,11 @@ import com.put.gamma.visitor.Visitor;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Every section is one command (line) of our scenario. Every section can contain list of subsections (if it has any).
+ * Parent is the parent Section of this actual Section (Sections without indentation don't contain any parent).
+ * Indentation shows how deep this step is.
+ */
 public class Section implements Element {
     public int depth;
     public String content;
@@ -29,6 +33,8 @@ public class Section implements Element {
 
     /**
      * This method trims the given string so it will ignore all characters before colon.
+     * @param content a String
+     * @return String trimmed without a keyword
      */
     private String ignoreKeywordTrim(String content){
         int colonIndex = content.indexOf(":");
@@ -45,6 +51,8 @@ public class Section implements Element {
      * This method returns true if the section content begins with an actor name or system actor name,
      * all of which are contained in allActors list.
      * This method is called in Scenario class.
+     * @param allActors list of all actors, both normal and system ones.
+     * @return a boolean statement
      */
     public boolean checkIfBeginsWithActorName(List<String> allActors){
         for(String actor: allActors){
@@ -54,6 +62,11 @@ public class Section implements Element {
         }
         return false;
     }
+    /**
+     * This method returns true if this section's content begins with a keyword.
+     * @param keywords list of all keywords
+     * @return a boolean statement
+     */
     public boolean checkIfBeginsWithKeyword(List<String> keywords){
         for (String keyword: keywords
         ) {
@@ -63,7 +76,10 @@ public class Section implements Element {
         }
         return false;
     }
-
+    /**
+     * This method accepts visitors into the object.
+     * @param visitor - an object of type inherited from visitor interface
+     */
     @Override
     public void accept(Visitor visitor) {
         visitor.elements.add(this);
@@ -75,6 +91,7 @@ public class Section implements Element {
     }
     /**
      * This method accepts a visitor into this element without needing to visit its subsections.
+     * @param visitor - an object of type inherited from visitor interface
      */
     public void acceptOnlyHere(Visitor visitor){
         visitor.elements.add(this);

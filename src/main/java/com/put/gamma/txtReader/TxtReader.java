@@ -6,6 +6,9 @@ Arguments: multipartFile (from Postman API), scenario (scenario where later we w
 
 package com.put.gamma.txtReader;
 
+import com.put.gamma.springboot.ApplicationAPI.ScenarioQualityChecker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 import com.put.gamma.scenario.Scenario;
 import com.put.gamma.section.Section;
@@ -19,6 +22,7 @@ import java.util.stream.Collectors;
 public class TxtReader {
     private MultipartFile multipartFile;
     public Scenario scenario;
+    private static Logger logger = LoggerFactory.getLogger(TxtReader.class);
 
     public TxtReader(MultipartFile multipartFile, Scenario scenario) {
         // Check if the file has a .txt extension
@@ -41,6 +45,7 @@ public class TxtReader {
             int baseIndentation = 0;
             String line;
             while ((line = bufferedReader.readLine()) != null) {
+                logger.info(line);
                 // Skip empty lines
                 if (line.trim().isEmpty()) {
                     continue;
@@ -66,7 +71,7 @@ public class TxtReader {
                     if (currentSection.content == "") {
                         baseIndentation = getIndentation(line);
                         currentSection.indentation = baseIndentation;
-                        System.out.println(baseIndentation);
+                        logger.info("Base Indentation: " + baseIndentation);
                     }
                     // Create a new section for each indented line
                     int indentation = getIndentation(line);
@@ -101,6 +106,7 @@ public class TxtReader {
 
             bufferedReader.close();
         } catch (IOException e) {
+            logger.error("Error occured: " + e);
             e.printStackTrace();
         }
     }
