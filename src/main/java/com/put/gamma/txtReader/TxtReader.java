@@ -45,6 +45,7 @@ public class TxtReader {
             int baseIndentation = 0;
             String line;
             while ((line = bufferedReader.readLine()) != null) {
+                logger.info(line);
                 // Skip empty lines
                 if (line.trim().isEmpty()) {
                     continue;
