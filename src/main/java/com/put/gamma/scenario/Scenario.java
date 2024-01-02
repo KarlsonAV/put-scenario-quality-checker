@@ -49,18 +49,7 @@ public class Scenario implements Element {
         sectionCount = countSectionsVisitor.getSectionCount();
         return sectionCount;
     }
-    /**
-     * This method accepts visitors into the object.
-     * @param visitor - an object of type inherited from visitor interface
-     */
-    @Override
-    public void accept(Visitor visitor) {
-        visitor.elements.add(this);
-        for (Section section: sections
-             ) {
-            visitor.visit(section);
-        }
-    }
+
     /**
      * This method asks the visitor to count all sections that contain keywords
      * @return number of results
@@ -72,13 +61,7 @@ public class Scenario implements Element {
         result=countKeywordsVisitor.getResult();
         return result;
     }
-    /**
-     * This method accepts a visitor into this element without needing to visit its subsections.
-     * @param visitor - an object of type inherited from visitor interface
-     */
-    public void acceptOnlyHere(Visitor visitor){
-        visitor.elements.add(this);
-    }
+
 
     /**
      * This method asks the visitor to check if a certain section starts with an actor name.
@@ -111,4 +94,32 @@ public class Scenario implements Element {
             System.out.println("line: "+content);
         }
     }
+
+    /**
+     * This function displays the scenario up to depth given.
+     *
+     * @param depth - depth determines how deep the visitor will visit the scenario. 0 will visit the entire scenario.
+     */
+    public void displayScenarioUpToDepth(int depth){
+        System.out.println("Sections up to depth "+depth+":");
+        VisitorShowScenario scenarioUpToDepth = new VisitorShowScenario(depth);
+        scenarioUpToDepth.visit(this);
+    }
+    /**
+     * This method accepts visitors into the object.
+     * @param visitor - an object of type inherited from visitor interface
+     * @param depth - integer that will let in the visitor to a certain depth. If is -1 then accepts just into this object. If 0, lets in to all of the sections.
+     */
+    @Override
+    public void accept(Visitor visitor, int depth){
+        visitor.elements.add(this);
+        if(depth == -1 || depth != 0){
+            return;
+        }
+        for (Section section: sections
+        ) {
+            visitor.visit(section);
+        }
+    }
+
 }

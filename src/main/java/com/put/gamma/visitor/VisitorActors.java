@@ -22,7 +22,7 @@ public class VisitorActors implements Visitor {
     public void visit(Scenario scenario) {
         allActors.addAll(scenario.getSystemActors());
         allActors.addAll(scenario.getActors());
-        scenario.acceptOnlyHere(this);
+        scenario.accept(this,-1);
     }
     /**
      * This method visits the section and is only let into one section at a time.
@@ -30,7 +30,7 @@ public class VisitorActors implements Visitor {
      */
     @Override
     public void visit(Section section) {
-        section.acceptOnlyHere(this);
+        section.accept(this,-1);
         doesStartWithActors=section.checkIfBeginsWithActorName(allActors);
     }
     public boolean getDoesStartWithActors(){

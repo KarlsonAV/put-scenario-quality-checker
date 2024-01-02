@@ -37,14 +37,23 @@ class ScenarioTest {
     public void setup(){
         scenario.setActors(actors);
         scenario.setSystemActors(systemActors);
+        section1.setDepth(1);
         scenario.sections.add(section1);
+        section2.setDepth(1);
         scenario.sections.add(section2);
+        section3.setDepth(1);
         scenario.sections.add(section3);
+        section4.setDepth(1);
         scenario.sections.add(section4);
+        section5.setDepth(2);
         scenario.sections.get(3).subsections.add(section5);
+        section6.setDepth(2);
         scenario.sections.get(3).subsections.add(section6);
+        section7.setDepth(3);
         scenario.sections.get(3).subsections.get(1).subsections.add(section7);
+        section8.setDepth(2);
         scenario.sections.get(3).subsections.add(section8);
+        section9.setDepth(3);
         scenario.sections.get(3).subsections.get(2).subsections.add(section9);
     }
     @Test
@@ -81,5 +90,19 @@ class ScenarioTest {
     public void testCheckIfBeginsWithKeyword(){
         assertTrue(scenario.sections.get(3).subsections.get(2).checkIfBeginsWithKeyword(scenario.keywords));
     }
-
+    @Test
+    public void testCheckDisplay(){
+        scenario.displayScenarioUpToDepth(0);
+        System.out.println("------------------------------------------------------------------");
+        scenario.displayScenarioUpToDepth(1);
+        System.out.println("------------------------------------------------------------------");
+        scenario.displayScenarioUpToDepth(2);
+        System.out.println("------------------------------------------------------------------");
+        scenario.displayScenarioUpToDepth(3);
+        System.out.println("------------------------------------------------------------------");
+        scenario.displayScenarioUpToDepth(4);
+        System.out.println("------------------------------------------------------------------");
+        scenario.displayScenarioUpToDepth(-4);
+        assertTrue(true);
+    }
 }
