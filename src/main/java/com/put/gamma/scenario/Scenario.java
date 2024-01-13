@@ -100,7 +100,7 @@ public class Scenario implements Element {
      *
      * @param depth - depth determines how deep the visitor will visit the scenario. 0 will visit the entire scenario.
      */
-    public void displayScenarioUpToDepth(int depth){
+    public void displayScenarioUpToDepth(int depth){ //poprawic na string
         System.out.println("Sections up to depth "+depth+":");
         VisitorShowScenario scenarioUpToDepth = new VisitorShowScenario(depth);
         scenarioUpToDepth.visit(this);

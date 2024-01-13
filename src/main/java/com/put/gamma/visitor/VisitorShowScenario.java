@@ -34,7 +34,7 @@ public class VisitorShowScenario implements Visitor{
      */
     @Override
     public void visit(Section section) {
-        if(section.depth<=this.depth){
+        if(section.depth<=this.depth||this.depth==0){
             System.out.println("Depth "+section.depth+": "+section.content);
         }
         section.accept(this,this.depth);
