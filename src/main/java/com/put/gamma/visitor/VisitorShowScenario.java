@@ -15,6 +15,7 @@ public class VisitorShowScenario implements Visitor{
      * This argument determines the maximum depth of displayed sections.
      */
     public int depth;
+    public String scenarioFiltered = "";
     public VisitorShowScenario(int depth){
         this.depth = depth;
     }
@@ -35,8 +36,12 @@ public class VisitorShowScenario implements Visitor{
     @Override
     public void visit(Section section) {
         if(section.depth<=this.depth||this.depth==0){
-            System.out.println("Depth "+section.depth+": "+section.content);
+            //System.out.println("Depth "+section.depth+": "+section.content);
+            scenarioFiltered += section.content + "\n";
         }
         section.accept(this,this.depth);
+    }
+    public String getScenarioFiltered(){
+        return scenarioFiltered;
     }
 }

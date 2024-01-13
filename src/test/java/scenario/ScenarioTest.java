@@ -91,18 +91,13 @@ class ScenarioTest {
         assertTrue(scenario.sections.get(3).subsections.get(2).checkIfBeginsWithKeyword(scenario.keywords));
     }
     @Test
-    public void testCheckDisplay(){
-        scenario.displayScenarioUpToDepth(0);
-        System.out.println("------------------------------------------------------------------");
-        scenario.displayScenarioUpToDepth(1);
-        System.out.println("------------------------------------------------------------------");
-        scenario.displayScenarioUpToDepth(2);
-        System.out.println("------------------------------------------------------------------");
-        scenario.displayScenarioUpToDepth(3);
-        System.out.println("------------------------------------------------------------------");
-        scenario.displayScenarioUpToDepth(4);
-        System.out.println("------------------------------------------------------------------");
-        scenario.displayScenarioUpToDepth(-4);
-        assertTrue(true);
+    public void testCheckScenarioUpToDepth1(){
+        String exampleScenario = "Hektor miał Trojan radę nad Skamandru rzeką\n\nSystem zwraca wartość ujemną\nFOR EACH: System\n";
+        assertEquals(exampleScenario,scenario.displayScenarioUpToDepth(1));
+    }
+    @Test
+    public void testCheckScenarioUpToDepth2(){
+        String exampleScenario = "Hektor miał Trojan radę nad Skamandru rzeką\n\nSystem zwraca wartość ujemną\nFOR EACH: System\n    Hektor miał Trojan radę nad Skamandru rzeką\n    IF: Homer jest aktorem\n    IF: Test aktorow\n";
+        assertEquals(exampleScenario,scenario.displayScenarioUpToDepth(2));
     }
 }
