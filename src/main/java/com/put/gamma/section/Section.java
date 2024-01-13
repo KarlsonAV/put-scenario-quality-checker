@@ -33,6 +33,7 @@ public class Section implements Element {
     public void setDepth(int depth){
         this.depth=depth;
     }
+    public int getDepth() { return depth; }
     /**
      * This method trims the given string so it will ignore all characters before colon.
      * @param content a String

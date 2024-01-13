@@ -105,6 +105,38 @@ public class Scenario implements Element {
         VisitorShowScenario scenarioUpToDepth = new VisitorShowScenario(depth);
         scenarioUpToDepth.visit(this);
     }
+
+    /**
+     * This method initiates the enumeration process for the entire scenario.
+     * It creates an instance of VisitorEnumerate, accepts the visitor on the scenario,
+     * and returns the enumerated scenario as a string.
+     * @return the enumerated scenario as a string
+     */
+    public String enumerateScenario() {
+        VisitorEnumerate visitor = new VisitorEnumerate();
+        accept(visitor, 0);  // Accepting the visitor with depth 0 to start the enumeration
+        return visitor.getEnumeratedScenario();
+    }
+
+    /**
+     * Counts the number of main steps in the scenario and provides feedback.
+     * @return a string indicating the scenario quality based on the main steps count
+     */
+    public String checkMainSteps() {
+        VisitorMainSteps mainStepsVisitor = new VisitorMainSteps();
+        accept(mainStepsVisitor, 0);  // Accepting the visitor with depth 0 to count main steps
+        int mainStepsCount = mainStepsVisitor.getMainStepsCount();
+
+        if (mainStepsCount < 3) {
+            return "Za mało kroków";
+        } else if (mainStepsCount > 9) {
+            return "Za dużo kroków";
+        } else {
+            return "Dobry scenariusz";
+        }
+    }
+
+
     /**
      * This method accepts visitors into the object.
      * @param visitor - an object of type inherited from visitor interface
