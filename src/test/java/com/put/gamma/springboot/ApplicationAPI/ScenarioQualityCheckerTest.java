@@ -38,7 +38,6 @@ System informuje o poprawnym dodaniu książki.""".strip();
 
     @Autowired
     private MockMvc mockMvc;
-
     @Test
     void testCountSections() throws Exception {
         MockMultipartFile file = new MockMultipartFile("file", "scenario.txt",

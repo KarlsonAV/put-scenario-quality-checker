@@ -10,5 +10,5 @@ public interface Element {
      * This method accepts visitors into the object.
      * @param visitor - an object of type inherited from visitor interface
      */
-    public void accept(Visitor visitor);
+    public void accept(Visitor visitor, int depth);
 }

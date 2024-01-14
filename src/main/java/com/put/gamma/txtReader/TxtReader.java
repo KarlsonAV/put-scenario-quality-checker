@@ -33,8 +33,8 @@ public class TxtReader {
         this.scenario = scenario;
     }
 
-    /*
-    Reads file line by line and puts correct values to 'title', 'actors', ... of scenario
+    /**
+    * Reads file line by line and puts correct values to 'title', 'actors', ... of scenario
      */
     public void readFile() {
         try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(multipartFile.getInputStream()))) {

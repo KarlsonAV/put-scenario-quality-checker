@@ -15,7 +15,7 @@ public class VisitorCountSections implements Visitor{
      */
     @Override
     public void visit(Scenario scenario){
-        scenario.accept(this);
+        scenario.accept(this,0);
     }
     /**
      * This method visits the section given and makes this visitor
@@ -24,7 +24,7 @@ public class VisitorCountSections implements Visitor{
      */
     @Override
     public void visit(Section section){
-        section.accept(this);
+        section.accept(this,0);
         sectionCount++;
     }
     public int getSectionCount(){

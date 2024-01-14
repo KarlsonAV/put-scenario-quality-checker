@@ -37,14 +37,23 @@ class ScenarioTest {
     public void setup(){
         scenario.setActors(actors);
         scenario.setSystemActors(systemActors);
+        section1.setDepth(1);
         scenario.sections.add(section1);
+        section2.setDepth(1);
         scenario.sections.add(section2);
+        section3.setDepth(1);
         scenario.sections.add(section3);
+        section4.setDepth(1);
         scenario.sections.add(section4);
+        section5.setDepth(2);
         scenario.sections.get(3).subsections.add(section5);
+        section6.setDepth(2);
         scenario.sections.get(3).subsections.add(section6);
+        section7.setDepth(3);
         scenario.sections.get(3).subsections.get(1).subsections.add(section7);
+        section8.setDepth(2);
         scenario.sections.get(3).subsections.add(section8);
+        section9.setDepth(3);
         scenario.sections.get(3).subsections.get(2).subsections.add(section9);
     }
     @Test
@@ -81,5 +90,14 @@ class ScenarioTest {
     public void testCheckIfBeginsWithKeyword(){
         assertTrue(scenario.sections.get(3).subsections.get(2).checkIfBeginsWithKeyword(scenario.keywords));
     }
-
+    @Test
+    public void testCheckScenarioUpToDepth1(){
+        String exampleScenario = "Hektor miał Trojan radę nad Skamandru rzeką\n\nSystem zwraca wartość ujemną\nFOR EACH: System\n";
+        assertEquals(exampleScenario,scenario.displayScenarioUpToDepth(1));
+    }
+    @Test
+    public void testCheckScenarioUpToDepth2(){
+        String exampleScenario = "Hektor miał Trojan radę nad Skamandru rzeką\n\nSystem zwraca wartość ujemną\nFOR EACH: System\n    Hektor miał Trojan radę nad Skamandru rzeką\n    IF: Homer jest aktorem\n    IF: Test aktorow\n";
+        assertEquals(exampleScenario,scenario.displayScenarioUpToDepth(2));
+    }
 }
