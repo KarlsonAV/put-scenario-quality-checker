@@ -156,7 +156,7 @@ public class ScenarioQualityChecker {
      *
      * @param file  The MultipartFile containing the scenario data.
      * @param depth The depth up to which the scenario should be displayed.
-     * @return ResponseEntity<Object> with the scenario information or an error message.
+     * @return ResponseEntity with the JSON object containing scenario information or an error message.
      */
     @PostMapping("api/v2/scenario/scenarioUpToDepth")
     @ResponseBody
