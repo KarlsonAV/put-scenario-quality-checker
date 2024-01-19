@@ -95,6 +95,11 @@ public class ScenarioQualityChecker {
             scenario.scenarioTextReader.readFile();
 
             List<String> sectionsWithErrors = scenario.findSectionsWithErrors();
+            for (int i = 0; i < sectionsWithErrors.size(); i++) {
+                String section = sectionsWithErrors.get(i);
+                section = '"' + section + '"';
+                sectionsWithErrors.set(i, section);
+            }
             logger.info("Sections with error: " + sectionsWithErrors);
             return ResponseEntity.ok().body("{\"sectionsWithErrors\": " + sectionsWithErrors + "}");
         } catch (Exception e) {
@@ -123,7 +128,7 @@ public class ScenarioQualityChecker {
 
             String enumeratedScenario = scenario.enumerateScenario();
             logger.info("Scenario: " + enumeratedScenario);
-            return ResponseEntity.ok().body("{\"enumeratedScenario\": " + enumeratedScenario + "}");
+            return ResponseEntity.ok().body("{\"enumeratedScenario\": " + '"' + enumeratedScenario + '"' + "}");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred: " + e.getMessage());
         }
@@ -144,7 +149,7 @@ public class ScenarioQualityChecker {
 
             String mainSteps = scenario.checkMainSteps();
             logger.info("Info about main steps: " + mainSteps);
-            return ResponseEntity.ok().body("{\"mainSteps\": " + mainSteps + "}");
+            return ResponseEntity.ok().body("{\"mainSteps\": " + '"' + mainSteps + '"' + "}");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred: " + e.getMessage());
         }
@@ -173,7 +178,7 @@ public class ScenarioQualityChecker {
 
             String scenarioUpToDepth = scenario.displayScenarioUpToDepth(depth);
             logger.info("Scenario up to depth: " + depth + "\n" + scenarioUpToDepth);
-            return ResponseEntity.ok().body("{\"scenarioUpToDepth\": " + scenarioUpToDepth + "}");
+            return ResponseEntity.ok().body("{\"scenarioUpToDepth\": " + '"' + scenarioUpToDepth + '"' + "}");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred: " + e.getMessage());
         }
