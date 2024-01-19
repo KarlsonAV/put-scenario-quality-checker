@@ -87,22 +87,21 @@ curl -X POST -F "file=@scenario.txt" http://your-api-base-url/api/v2/scenario/en
 ```
 
 **Response Example:**
-```json
-{
-  "enumeratedScenario": "1. Bibliotekarz wybiera opcje dodania nowej pozycji książkowej
-  2. Wyświetla się formularz.
-  3. Bibliotekarz podaje dane książki.
-  4. IF: Bibliotekarz pragnie dodać egzemplarze książki
-  4. 1. Bibliotekarz wybiera opcję definiowania egzemplarzy
-  4. 2. System prezentuje zdefiniowane egzemplarze
-  4. 3. FOR EACH egzemplarz:
-  4. 3. 1. Bibliotekarz wybiera opcję dodania egzemplarza
-  4. 3. 2. System prosi o podanie danych egzemplarza
-  4. 3. 3. Bibliotekarz podaje dane egzemplarza i zatwierdza.
-  4. 3. 4. System informuje o poprawnym dodaniu egzemplarza i prezentuje zaktualizowaną listę egzemplarzy.
-  5. Bibliotekarz zatwierdza dodanie książki.
-  6. System informuje o poprawnym dodaniu książki."
-}
+```
+{"enumeratedScenario": "1. Bibliotekarz wybiera opcje dodania nowej pozycji książkowej
+2. Wyświetla się formularz.
+3. Bibliotekarz podaje dane książki.
+4. IF: Bibliotekarz pragnie dodać egzemplarze książki
+4. 1. Bibliotekarz wybiera opcję definiowania egzemplarzy
+4. 2. System prezentuje zdefiniowane egzemplarze
+4. 3. FOR EACH egzemplarz:
+4. 3. 1. Bibliotekarz wybiera opcję dodania egzemplarza
+4. 3. 2. System prosi o podanie danych egzemplarza
+4. 3. 3. Bibliotekarz podaje dane egzemplarza i zatwierdza.
+4. 3. 4. System informuje o poprawnym dodaniu egzemplarza i prezentuje zaktualizowaną listę egzemplarzy.
+5. Bibliotekarz zatwierdza dodanie książki.
+6. System informuje o poprawnym dodaniu książki.
+"}
 ```
 
 ### Scenario Main Steps
@@ -138,7 +137,7 @@ curl -X POST -F "file=@scenario.txt" -F "depth=3" http://your-api-base-url/api/v
 ```
 
 **Response Example:**
-```json
+```
 {
   "scenarioUpToDepth": "Bibliotekarz wybiera opcje dodania nowej pozycji książkowej
   Wyświetla się formularz.
@@ -154,3 +153,4 @@ curl -X POST -F "file=@scenario.txt" -F "depth=3" http://your-api-base-url/api/v
   Bibliotekarz zatwierdza dodanie książki.
   System informuje o poprawnym dodaniu książki."
 }
+```
