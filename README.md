@@ -89,7 +89,7 @@ curl -X POST -F "file=@scenario.txt" http://your-api-base-url/api/v2/scenario/en
 **Response Example:**
 ```json
 {
-  "enumeratedScenario": 1. Bibliotekarz wybiera opcje dodania nowej pozycji książkowej
+  "enumeratedScenario": "1. Bibliotekarz wybiera opcje dodania nowej pozycji książkowej
   2. Wyświetla się formularz.
   3. Bibliotekarz podaje dane książki.
   4. IF: Bibliotekarz pragnie dodać egzemplarze książki
@@ -101,7 +101,7 @@ curl -X POST -F "file=@scenario.txt" http://your-api-base-url/api/v2/scenario/en
   4. 3. 3. Bibliotekarz podaje dane egzemplarza i zatwierdza.
   4. 3. 4. System informuje o poprawnym dodaniu egzemplarza i prezentuje zaktualizowaną listę egzemplarzy.
   5. Bibliotekarz zatwierdza dodanie książki.
-  6. System informuje o poprawnym dodaniu książki.
+  6. System informuje o poprawnym dodaniu książki."
 }
 ```
 
@@ -120,7 +120,7 @@ curl -X POST -F "file=@scenario.txt" http://your-api-base-url/api/v2/scenario/ma
 **Response Example:**
 ```json
 {
-  "mainSteps": Dobry scenariusz
+  "mainSteps": "Dobry scenariusz"
 }
 ```
 
@@ -140,5 +140,17 @@ curl -X POST -F "file=@scenario.txt" -F "depth=3" http://your-api-base-url/api/v
 **Response Example:**
 ```json
 {
-  "scenarioUpToDepth": "Scenario text up to specified depth"
+  "scenarioUpToDepth": "Bibliotekarz wybiera opcje dodania nowej pozycji książkowej
+  Wyświetla się formularz.
+  Bibliotekarz podaje dane książki.
+  IF: Bibliotekarz pragnie dodać egzemplarze książki
+  Bibliotekarz wybiera opcję definiowania egzemplarzy
+  System prezentuje zdefiniowane egzemplarze
+  FOR EACH egzemplarz:
+  Bibliotekarz wybiera opcję dodania egzemplarza
+  System prosi o podanie danych egzemplarza
+  Bibliotekarz podaje dane egzemplarza i zatwierdza.
+  System informuje o poprawnym dodaniu egzemplarza i prezentuje zaktualizowaną listę egzemplarzy.
+  Bibliotekarz zatwierdza dodanie książki.
+  System informuje o poprawnym dodaniu książki."
 }
