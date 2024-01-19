@@ -24,7 +24,7 @@ public class VisitorKeywords implements Visitor{
     @Override
     public void visit(Scenario scenario) {
         keywords=scenario.keywords;
-        scenario.accept(this);
+        scenario.accept(this,0);
     }
 
     /**
@@ -35,7 +35,7 @@ public class VisitorKeywords implements Visitor{
      */
     @Override
     public void visit(Section section) {
-        section.accept(this);
+        section.accept(this,0);
         if(section.checkIfBeginsWithKeyword(keywords)==true){
             result++;
         }

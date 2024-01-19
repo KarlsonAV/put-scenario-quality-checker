@@ -25,7 +25,7 @@ public class VisitorErrors implements Visitor{
         allActors.addAll(scenario.getSystemActors());
         allActors.addAll(scenario.getActors());
         keywords = scenario.keywords;
-        scenario.accept(this);
+        scenario.accept(this,0);
     }
     /**
      * This method visits the section given and makes this visitor
@@ -42,7 +42,7 @@ public class VisitorErrors implements Visitor{
                 errors.add(section.content);
             }
         }
-        section.accept(this);
+        section.accept(this,0);
     }
     public List<String>getErrors(){
         return errors;

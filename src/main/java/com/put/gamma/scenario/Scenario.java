@@ -49,18 +49,7 @@ public class Scenario implements Element {
         sectionCount = countSectionsVisitor.getSectionCount();
         return sectionCount;
     }
-    /**
-     * This method accepts visitors into the object.
-     * @param visitor - an object of type inherited from visitor interface
-     */
-    @Override
-    public void accept(Visitor visitor) {
-        visitor.elements.add(this);
-        for (Section section: sections
-             ) {
-            visitor.visit(section);
-        }
-    }
+
     /**
      * This method asks the visitor to count all sections that contain keywords
      * @return number of results
@@ -72,13 +61,7 @@ public class Scenario implements Element {
         result=countKeywordsVisitor.getResult();
         return result;
     }
-    /**
-     * This method accepts a visitor into this element without needing to visit its subsections.
-     * @param visitor - an object of type inherited from visitor interface
-     */
-    public void acceptOnlyHere(Visitor visitor){
-        visitor.elements.add(this);
-    }
+
 
     /**
      * This method asks the visitor to check if a certain section starts with an actor name.
@@ -111,4 +94,65 @@ public class Scenario implements Element {
             System.out.println("line: "+content);
         }
     }
+
+    /**
+     * This function returns the scenario up to depth given.
+     * @param depth
+     * @return string of all section's contents up to certain depth.
+     */
+    public String displayScenarioUpToDepth(int depth){
+        //System.out.println("Sections up to depth "+depth+":");
+        VisitorShowScenario scenarioUpToDepth = new VisitorShowScenario(depth);
+        scenarioUpToDepth.visit(this);
+        return scenarioUpToDepth.getScenarioFiltered();
+    }
+
+    /**
+     * This method initiates the enumeration process for the entire scenario.
+     * It creates an instance of VisitorEnumerate, accepts the visitor on the scenario,
+     * and returns the enumerated scenario as a string.
+     * @return the enumerated scenario as a string
+     */
+    public String enumerateScenario() {
+        VisitorEnumerate visitor = new VisitorEnumerate();
+        accept(visitor, 0);  // Accepting the visitor with depth 0 to start the enumeration
+        return visitor.getEnumeratedScenario();
+    }
+
+    /**
+     * Counts the number of main steps in the scenario and provides feedback.
+     * @return a string indicating the scenario quality based on the main steps count
+     */
+    public String checkMainSteps() {
+        VisitorMainSteps mainStepsVisitor = new VisitorMainSteps();
+        accept(mainStepsVisitor, 0);  // Accepting the visitor with depth 0 to count main steps
+        int mainStepsCount = mainStepsVisitor.getMainStepsCount();
+
+        if (mainStepsCount < 3) {
+            return "Za mało kroków";
+        } else if (mainStepsCount > 9) {
+            return "Za dużo kroków";
+        } else {
+            return "Dobry scenariusz";
+        }
+    }
+
+
+    /**
+     * This method accepts visitors into the object.
+     * @param visitor - an object of type inherited from visitor interface
+     * @param depth - integer that will let in the visitor to a certain depth. If is -1 then accepts just into this object. If 0, lets in to all of the sections.
+     */
+    @Override
+    public void accept(Visitor visitor, int depth){
+        visitor.elements.add(this);
+        if(depth == -1 || depth != 0){
+            return;
+        }
+        for (Section section: sections
+        ) {
+            visitor.visit(section);
+        }
+    }
+
 }

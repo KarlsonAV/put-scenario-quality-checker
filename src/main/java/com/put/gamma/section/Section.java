@@ -30,7 +30,10 @@ public class Section implements Element {
         this.content = content;
         this.parent = parent;
     }
-
+    public void setDepth(int depth){
+        this.depth=depth;
+    }
+    public int getDepth() { return depth; }
     /**
      * This method trims the given string so it will ignore all characters before colon.
      * @param content a String
@@ -79,21 +82,28 @@ public class Section implements Element {
     /**
      * This method accepts visitors into the object.
      * @param visitor - an object of type inherited from visitor interface
+     * @param depth - depth parameter. If the section is accepted by a visitor with given depth parameter bigger than this section,
+     *              it will simply return. If it's equal to -1 it will just add the section to visitor elements and not let in further.
+     *              If it's equal to 0 it will let through all sections,
+     *              If it's bigger than 0 it will check the next subsection's depth and depending on it, it will visit it or not.
      */
     @Override
-    public void accept(Visitor visitor) {
+    public void accept(Visitor visitor, int depth) {
+        if(this.depth>depth && depth!=0){
+            return;
+        }
         visitor.elements.add(this);
         //System.out.println(this.depth+" "+this.content);
+        if(depth == -1){
+            return;
+        }
         for (Section subsection: subsections
         ) {
-            visitor.visit(subsection);
+            if(subsection.depth<=depth || depth == 0){
+                visitor.visit(subsection);
+            }
+
         }
     }
-    /**
-     * This method accepts a visitor into this element without needing to visit its subsections.
-     * @param visitor - an object of type inherited from visitor interface
-     */
-    public void acceptOnlyHere(Visitor visitor){
-        visitor.elements.add(this);
-    }
+
 }

@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.put.gamma.springboot</groupId>
     <artifactId>ApplicationAPI</artifactId>
-    <version>v1.1</version>
+    <version>v2.0</version>
     <name>ApplicationAPI</name>
     <description>Scenario Quality Checker</description>
     <properties>
